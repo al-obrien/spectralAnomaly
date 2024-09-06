@@ -1,0 +1,18 @@
+Package: spectralAnomaly
+Type: Package
+Title: Detect Anomalies Using the 'Spectral Residual' algorithm.
+Version: 0.1.0
+Description: Apply the 'Spectral Residual' algorithm to data, such as a
+    time series, to detect anomalies. 
+Authors@R: 
+    person("Allen", "OBrien", email = 'allen.g.obrien@gmail.com', role = c("aut", "cre", "cph"))
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Imports: 
+    stats,
+    utils
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+RoxygenNote: 7.3.2
