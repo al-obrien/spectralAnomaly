@@ -12,7 +12,8 @@
 anomaly_score <- function(x, score_window, spec_window = 3, m = 5) {
 
   # Extend (5 points)
-  x <- c(x, rep(simple_extrapolation(x, m), 5))
+  ext_pts <- 5
+  x <- c(x, rep(simple_extrapolation(x, m), ext_pts))
 
   # Saliency Map
   sal_map <- saliency_map(x, spec_window)
@@ -20,5 +21,8 @@ anomaly_score <- function(x, score_window, spec_window = 3, m = 5) {
   # Create score
   avg_val <- avg_sliding_window(sal_map, score_window)
   #safe_div <- pmax( .Machine$double.eps, pmin(avg_val, max(avg_val)))
-  abs((sal_map - avg_val) / avg_val)
+  score <- abs((sal_map - avg_val) / avg_val)
+
+  # Return same length
+  head(score, -ext_pts)
 }
