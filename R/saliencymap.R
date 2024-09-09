@@ -1,5 +1,8 @@
 #' Create saliency map
 #'
+#' Using the provided numeric input, typically a time series, calculate the spectral residual
+#' and output the saliency map for use in anomaly detection.
+#'
 #' @param x Numeric vector.
 #' @param window Positive integer value.
 #'
@@ -8,11 +11,12 @@
 #' @examples
 #' tmp <- ts(rnorm(12*6,10,2), start=c(2009, 1), end=c(2014, 12), frequency=12)
 #' saliency_map(tmp)
+#' @seealso \link{\code{anomaly_score}}
 #' @export
 saliency_map <- function(x, window = 3) {
 
   len_data <- length(x)
-  fft_data <- fft(x)
+  fft_data <- stats::fft(x)
 
   # Get amplitude, and phase
   amp <- Mod(fft_data)

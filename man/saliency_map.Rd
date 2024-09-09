@@ -15,9 +15,13 @@ saliency_map(x, window = 3)
 Numeric vector representing the saliency map values.
 }
 \description{
-Create saliency map
+Using the provided numeric input, typically a time series, calculate the spectral residual
+and output the saliency map for use in anomaly detection.
 }
 \examples{
 tmp <- ts(rnorm(12*6,10,2), start=c(2009, 1), end=c(2014, 12), frequency=12)
-
+saliency_map(tmp)
+}
+\seealso{
+\link{\code{anomaly_score}}
 }

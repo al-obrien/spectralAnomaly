@@ -19,7 +19,9 @@ anomaly_score(x, score_window, spec_window = 3, m = 5)
 A numeric vector of anomaly scores.
 }
 \description{
-Create anomaly score from input data
+Convert an input of numeric data, typically a time series, into a score for anomaly detection.
+The data is first extended to improve the detection latency, followed by saliency map creation. The
+score is calculated using the sliding window average for each point in the saliency map.
 }
 \examples{
 tmp <- ts(rnorm(12*6,10,2), start=c(2009, 1), end=c(2014, 12), frequency=12)

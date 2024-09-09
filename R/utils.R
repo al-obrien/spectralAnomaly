@@ -1,20 +1,26 @@
 #' Inverse Fast Fourier Transform
 #'
+#' A helper function to perform the inverse operation of the fast fourier transform.
+#'
 #' @param x Numeric vector.
 #' @param len Optional argument, define length of provided vector as a numeric.
 #'
 #' @returns Numeric vector.
+#' @noRd
 inv_fft <- function(x, len = NULL) {
   if(is.null(len)) len <- length(x)
-  fft(x, inverse = TRUE)/ len
+  stats::fft(x, inverse = TRUE)/ len
 }
 
 #' Sliding window convolution.
+#'
+#' Calculate the sliding window average based upon the width provided.
 #'
 #' @param x Numeric vector.
 #' @param window Integer vector for sliding window.
 #'
 #' @returns Numeric vector of averaged values over the sliding window.
+#' @noRd
 avg_sliding_window <- function(x, window) {
   up2window <- window-1
   first_set <- cumsum(x[1:up2window])
@@ -39,3 +45,4 @@ avg_sliding_window <- function(x, window) {
 #' @export
 anomaly_thresh <- function(x, threshold = 0.99, ...) {
   x > stats::quantile(x, prob = threshold, ...)
+}
