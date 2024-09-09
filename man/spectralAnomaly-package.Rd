@@ -4,9 +4,16 @@
 \name{spectralAnomaly-package}
 \alias{spectralAnomaly}
 \alias{spectralAnomaly-package}
-\title{spectralAnomaly: Detect Anomalies Using the 'Spectral Residual' algorithm}
+\title{spectralAnomaly: Detect Anomalies Using the 'Spectral Residual' Algorithm}
 \description{
 Apply the 'Spectral Residual' algorithm to data, such as a time series, to detect anomalies. Anomaly scores can be used determine outliers based upon a threshold or fed into more sophistcated prediction models.
+}
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://al-obrien.github.io/spectralAnomaly}
+}
+
 }
 \author{
 \strong{Maintainer}: Allen OBrien \email{allen.g.obrien@gmail.com} [copyright holder]
