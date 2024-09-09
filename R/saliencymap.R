@@ -11,7 +11,7 @@
 #' @examples
 #' tmp <- ts(rnorm(12*6,10,2), start=c(2009, 1), end=c(2014, 12), frequency=12)
 #' saliency_map(tmp)
-#' @seealso \link{\code{anomaly_score}}
+#' @seealso \code{\link{anomaly_score}}
 #' @export
 saliency_map <- function(x, window = 3) {
 
