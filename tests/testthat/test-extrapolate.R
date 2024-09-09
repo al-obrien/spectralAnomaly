@@ -8,3 +8,10 @@ test_that("Extrapolation functions...", {
   expect_equal(round(simple_extrapolation(tmp, 2), 3), 12, ignore_attr = TRUE)
   expect_equal(round(simple_extrapolation(tmp, 10), 3), 14.92, ignore_attr = TRUE)
 })
+
+test_that("Extrapolation input failures...", {
+  tmp <- c(9, 9.8, 9.8)
+  expect_error(simple_extrapolation(tmp, 5))
+
+  expect_error(simple_extrapolation(9, 2))
+})
