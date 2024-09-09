@@ -4,7 +4,7 @@ test_that("Extrapolation functions...", {
             start=c(2009, 1),
             end=c(2010, 12),
             frequency=12)
-  expect_equal(round(simple_extrapolation(tmp, 5), 3), 8.408)
-  expect_equal(round(simple_extrapolation(tmp, 2), 3), 12)
-  expect_equal(round(simple_extrapolation(tmp, 10), 3), 14.92)
+  expect_equal(round(simple_extrapolation(tmp, 5), 3), 8.408, ignore_attr = TRUE)
+  expect_equal(round(simple_extrapolation(tmp, 2), 3), 12, ignore_attr = TRUE)
+  expect_equal(round(simple_extrapolation(tmp, 10), 3), 14.92, ignore_attr = TRUE)
 })
