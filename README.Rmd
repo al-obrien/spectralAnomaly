@@ -14,14 +14,14 @@ knitr::opts_chunk$set(
 set.seed(1295)
 ```
 
-# spectralAnomaly <img src="man/figures/logo.png" align="right" height="134" alt="" />
+# spectralAnomaly <a href="https://al-obrien.github.io/spectralAnomaly/"><img src="man/figures/logo.png" align="right" height="120" alt="spectralAnomaly website" /></a>
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/spectralAnomaly)](https://CRAN.R-project.org/package=spectralAnomaly)
 [![CRAN checks](https://badges.cranchecks.info/summary/spectralAnomaly.svg)](https://cran.r-project.org/web/checks/check_results_spectralAnomaly.html)
 [![R-CMD-check](https://github.com/al-obrien/spectralAnomaly/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/al-obrien/spectralAnomaly/actions/workflows/R-CMD-check.yaml)
 [![Dependencies](https://tinyverse.netlify.app/badge/spectralAnomaly)](https://cran.r-project.org/package=spectralAnomaly)
-[![](http://cranlogs.r-pkg.org/badges/grand-total/spectralAnomaly?color=blue)](https://cran.r-project.org/package=spectralAnomaly)
+[![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/spectralAnomaly?color=blue)](https://cran.r-project.org/package=spectralAnomaly)
 [![Codecov test coverage](https://codecov.io/gh/al-obrien/spectralAnomaly/graph/badge.svg)](https://app.codecov.io/gh/al-obrien/spectralAnomaly)
 <!-- badges: end -->
 
@@ -49,7 +49,7 @@ library(spectralAnomaly)
 ```
 
 ### Create a noisy time series with a modest anomaly threshold
-```{r}
+```{r, fig.alt = 'Anomalies in a noisy time series.'}
 test_ts <- ts(rnorm(12*6,10,2), start=c(2009, 1), end=c(2014, 12), frequency=12)
 ts_scores <- anomaly_score(test_ts, score_window = 25)
 plot(test_ts, type = 'l')
@@ -57,7 +57,7 @@ points(test_ts, col = ifelse(ts_scores > quantile(ts_scores, prob = 0.95),'red',
 ```
 
 ### Create a series with a step
-```{r}
+```{r, fig.alt = 'Anomalies in a time series with a breakpoint.'}
 test_ts_step <- c(rnorm(1, 1, n=250),
                   rnorm(10, 1, n=250))
 ts_scores <- anomaly_score(test_ts_step, score_window = 100)

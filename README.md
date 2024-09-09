@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# spectralAnomaly <img src="man/figures/logo.png" align="right" height="134" alt="" />
+# spectralAnomaly <a href="https://al-obrien.github.io/spectralAnomaly/"><img src="man/figures/logo.png" align="right" height="120" alt="spectralAnomaly website" /></a>
 
 <!-- badges: start -->
 
@@ -11,7 +11,7 @@ status](https://www.r-pkg.org/badges/version/spectralAnomaly)](https://CRAN.R-pr
 checks](https://badges.cranchecks.info/summary/spectralAnomaly.svg)](https://cran.r-project.org/web/checks/check_results_spectralAnomaly.html)
 [![R-CMD-check](https://github.com/al-obrien/spectralAnomaly/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/al-obrien/spectralAnomaly/actions/workflows/R-CMD-check.yaml)
 [![Dependencies](https://tinyverse.netlify.app/badge/spectralAnomaly)](https://cran.r-project.org/package=spectralAnomaly)
-[![](http://cranlogs.r-pkg.org/badges/grand-total/spectralAnomaly?color=blue)](https://cran.r-project.org/package=spectralAnomaly)
+[![Downloads](http://cranlogs.r-pkg.org/badges/grand-total/spectralAnomaly?color=blue)](https://cran.r-project.org/package=spectralAnomaly)
 [![Codecov test
 coverage](https://codecov.io/gh/al-obrien/spectralAnomaly/graph/badge.svg)](https://app.codecov.io/gh/al-obrien/spectralAnomaly)
 <!-- badges: end -->
@@ -50,7 +50,7 @@ plot(test_ts, type = 'l')
 points(test_ts, col = ifelse(ts_scores > quantile(ts_scores, prob = 0.95),'red',NA), pch = 16)
 ```
 
-<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-5-1.png" alt="Anomalies in a noisy time series." width="100%" />
 
 ### Create a series with a step
 
@@ -62,7 +62,7 @@ plot(test_ts_step, type = 'l')
 points(test_ts_step, col = ifelse(ts_scores > quantile(ts_scores, prob = 0.99),'red',NA), pch = 16)
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-6-1.png" alt="Anomalies in a time series with a breakpoint." width="100%" />
 
 ## References
 
