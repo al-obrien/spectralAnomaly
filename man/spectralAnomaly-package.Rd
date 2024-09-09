@@ -6,12 +6,16 @@
 \alias{spectralAnomaly-package}
 \title{spectralAnomaly: Detect Anomalies Using the 'Spectral Residual' Algorithm}
 \description{
-Apply the 'Spectral Residual' algorithm to data, such as a time series, to detect anomalies. Anomaly scores can be used determine outliers based upon a threshold or fed into more sophistcated prediction models.
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
+Apply the 'Spectral Residual' algorithm to data, such as a time series, to detect anomalies. Anomaly scores can be used determine outliers based upon a threshold or fed into more sophisticated prediction models.
 }
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://al-obrien.github.io/spectralAnomaly}
+  \item \url{https://al-obrien.github.io/spectralAnomaly/}
+  \item \url{https://github.com/al-obrien/spectralAnomaly}
+  \item Report bugs at \url{https://github.com/al-obrien/spectralAnomaly/issues}
 }
 
 }

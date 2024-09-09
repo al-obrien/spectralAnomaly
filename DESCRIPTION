@@ -4,7 +4,8 @@ Title: Detect Anomalies Using the 'Spectral Residual' Algorithm
 Version: 0.1.0
 Description: Apply the 'Spectral Residual' algorithm to data, such as a
     time series, to detect anomalies. Anomaly scores can be used determine 
-    outliers based upon a threshold or fed into more sophistcated prediction models.
+    outliers based upon a threshold or fed into more sophisticated prediction 
+    models.
 Authors@R: 
     person("Allen", "OBrien", email = 'allen.g.obrien@gmail.com', role = c("aut", "cre", "cph"))
 License: MIT + file LICENSE
@@ -17,4 +18,5 @@ Suggests:
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 RoxygenNote: 7.3.2
-URL: https://al-obrien.github.io/spectralAnomaly, https://al-obrien.github.io/spectralAnomaly/
+URL: https://al-obrien.github.io/spectralAnomaly/, https://github.com/al-obrien/spectralAnomaly
+BugReports: https://github.com/al-obrien/spectralAnomaly/issues
