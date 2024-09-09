@@ -8,11 +8,6 @@
 #'
 #' @returns Vector of estimated points.
 #'
-#' @examples
-#' tmp <- ts(rnorm(12*6,10,2), start=c(2009, 1), end=c(2014, 12), frequency=12)
-#' simple_extrapolation(tmp, 5)
-#' simple_extrapolation(tmp, 2)
-#' simple_extrapolation(tmp, 10)
 #' @noRd
 simple_extrapolation <- function(x, m = 5) {
   subvec <- utils::tail(x, 1+m)
