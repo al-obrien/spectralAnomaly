@@ -10,6 +10,7 @@
 #'
 #' @noRd
 simple_extrapolation <- function(x, m = 5) {
+  if(stats::is.ts(x)) x <- as.numeric(x)
   subvec <- utils::tail(x, 1+m)
   if(length(subvec) <=1) stop('Must have at least two numbers.')
   if(m >= length(subvec)) stop('Window must be smaller than vector.')

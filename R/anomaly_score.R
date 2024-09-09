@@ -17,7 +17,7 @@
 #' @export
 anomaly_score <- function(x, score_window, spec_window = 3, m = 5) {
 
-  if(stats::is.ts(x)) x <-  as.numeric(x)
+  if(stats::is.ts(x)) x <- as.numeric(x)
 
   # Extend (5 points)
   ext_pts <- 5
