@@ -8,7 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-Apply the 'Spectral Residual' algorithm to data, such as a time series, to detect anomalies. Anomaly scores can be used determine outliers based upon a threshold or fed into more sophisticated prediction models.
+Apply the spectral residual algorithm to data, such as a time series, to detect anomalies. Anomaly scores can be used to determine outliers based upon a threshold or fed into more sophisticated prediction models. Methods are based upon "Time-Series Anomaly Detection Service at Microsoft", Ren, H., Xu, B., Wang, Y., et al., (2019) \doi{10.48550/arXiv.1906.03821}.
 }
 \seealso{
 Useful links:

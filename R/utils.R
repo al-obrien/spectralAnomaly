@@ -25,7 +25,7 @@ avg_sliding_window <- function(x, window) {
   up2window <- window-1
   first_set <- cumsum(x[1:up2window])
   out <- stats::filter(x, filter = rep(1/window, window), sides = 1)
-  if(!is.ts(x)) out <- as.numeric(out) # Preserve the input as a numeric is wasnt a ts
+  if(!stats::is.ts(x)) out <- as.numeric(out) # Preserve the input as a numeric is wasnt a ts
   out[1:up2window] <- first_set[1:up2window] / 1:up2window
   out
 }
