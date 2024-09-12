@@ -2,9 +2,9 @@ Package: spectralAnomaly
 Type: Package
 Title: Detect Anomalies Using the 'Spectral Residual' Algorithm
 Version: 0.1.0
-Description: Apply the 'Spectral Residual' algorithm to data, such as a
-    time series, to detect anomalies. Anomaly scores can be used determine 
-    outliers based upon a threshold or fed into more sophisticated prediction 
+Description: Apply the spectral residual algorithm to data, such as a
+    time series, to detect anomalies. Anomaly scores can be used to determine
+    outliers based upon a threshold or fed into more sophisticated prediction
     models.
 Authors@R: 
     person("Allen", "OBrien", email = 'allen.g.obrien@gmail.com', role = c("aut", "cre", "cph"))
