@@ -21,7 +21,7 @@ saliency_map <- function(x, window = 3) {
   # Get amplitude, and phase
   amp <- Mod(fft_data)
   log_amp <- log(amp)
-  pha <- Arg(fft_data) # atan2(Im(tmp_fft),Re(tmp_fft))
+  #pha <- Arg(fft_data) # atan2(Im(tmp_fft),Re(tmp_fft))
 
   avg_log_spec <- avg_sliding_window(log_amp, window)
   spec_resid <- exp(log_amp - avg_log_spec)
@@ -31,7 +31,7 @@ saliency_map <- function(x, window = 3) {
 
   # Convert SR to SM
   sal_map <- inv_fft(complex(real= rl, imaginary = imgv))
-  sal_map <- sqrt( (Re(sal_map) ^ 2) + (Im(sal_map) ^ 2))
+  sal_map <- sqrt( (Re(sal_map) ^ 2) + (Im(sal_map) ^ 2)) # Mod()
   sal_map
 }
 
