@@ -4,7 +4,7 @@
 \name{spectralAnomaly-package}
 \alias{spectralAnomaly}
 \alias{spectralAnomaly-package}
-\title{spectralAnomaly: Detect Anomalies Using the 'Spectral Residual' Algorithm}
+\title{spectralAnomaly: Detect Anomalies Using the Spectral Residual Algorithm}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 

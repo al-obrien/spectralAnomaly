@@ -7,7 +7,7 @@ achieved compactly. The following changes were made:
 * Removed spaces at end of lines in the description field of DESCRIPTION as it 
 added too many spaces when including the return.
 
-* Removed quotes and capitalization in the description field of DESCRIPTION 
+* Removed quotes in the description and title fields of DESCRIPTION
 for the phrase: spectral residual.
 
 * Added reference and DOI for paper that inspired the package. 
