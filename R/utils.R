@@ -81,14 +81,19 @@ var_sliding_window <- function(x, window) {
 #' calculation has a useful value.
 #'
 #' @inheritParams anomaly_score
-#' @param n Integer value for number of anomalies to apply
+#' @param n Integer value for number of anomalies to apply.
+#' @param var_cap_rng A range of values to cap variances.
 #' @export
-add_anomaly <- function(x, n, score_window, spec_window) {
+add_anomaly <- function(x, n, score_window, spec_window, var_cap_rng = 5:15) {
   n_idx <- sample(2:length(x), n, replace = FALSE) # Dont pick first point as var is NA
   local_avg <- avg_sliding_window(x, score_window) # should be less than spec
   w_avg <- avg_sliding_window(x, spec_window)
   w_var <- var_sliding_window(x, spec_window)
-  w_var <- pmin(w_var, 10) # Cap the variance in extreme circumstances
+
+  # Cap the variance in extreme circumstances with some randomness to cap size
+  var_caps <- sample(var_cap_rng, length(w_var), replace = TRUE)
+  w_var <- pmin(w_var, var_caps)
+
   anomaly_v <- ((local_avg[n_idx] + w_avg[n_idx]) * (1 + w_var[n_idx]) * stats::rnorm(n)) + (x[n_idx])
   x[n_idx] <- anomaly_v
   x

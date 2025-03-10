@@ -4,16 +4,18 @@
 \alias{add_anomaly}
 \title{Generate anomalies within time series}
 \usage{
-add_anomaly(x, n, score_window, spec_window)
+add_anomaly(x, n, score_window, spec_window, var_cap_rng = 5:15)
 }
 \arguments{
 \item{x}{Numeric vector.}
 
-\item{n}{Integer value for number of anomalies to apply}
+\item{n}{Integer value for number of anomalies to apply.}
 
 \item{score_window}{Integer value for the window width for scoring.}
 
 \item{spec_window}{Positive integer value for the window to calculate the averaged log spectrum.}
+
+\item{var_cap_rng}{A range of values to cap variances.}
 }
 \description{
 Add \code{n} anomalies to an existing vector.
