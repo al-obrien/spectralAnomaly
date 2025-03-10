@@ -1,7 +1,7 @@
 Package: spectralAnomaly
 Type: Package
 Title: Detect Anomalies Using the Spectral Residual Algorithm
-Version: 0.1.1
+Version: 0.1.1.9000
 Description: Apply the spectral residual algorithm to data, such as a
     time series, to detect anomalies. Anomaly scores can be used to determine
     outliers based upon a threshold or fed into more sophisticated prediction

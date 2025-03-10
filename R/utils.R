@@ -47,3 +47,48 @@ avg_sliding_window <- function(x, window) {
 anomaly_thresh <- function(x, threshold = 0.99, ...) {
   x > stats::quantile(x, prob = threshold, ...)
 }
+
+#' Sliding window for variances
+#'
+#' Calculate the sliding window variance based upon the width provided.
+#'
+#' @param x Numeric vector.
+#' @param window Integer vector for sliding window.
+#'
+#' @returns Numeric vector of variances over the sliding window.
+#' @noRd
+var_sliding_window <- function(x, window) {
+  # Deal with initial set of variances up to window
+  up2window <- window-1
+  idx_v <- sapply(X = 1:up2window, FUN = function(idx) seq_along(1:idx), simplify = TRUE)
+  first_set_v <- sapply(idx_v, function(idx) var(x[idx]))
+
+  # Use embedding and concatenation of vars
+  w_var <- apply(embed(x, window), MARGIN = 1, var)
+  return(c(start_var, w_var))
+}
+
+
+#' Generate anomalies within time series
+#'
+#' Add \code{n} anomalies to an existing vector.
+#'
+#' Method to calculate is:
+#'
+#' \deqn{x + (\bar{x} + mean)(1+var)(\mathcal{N}(0,1))}
+#'
+#' Will exclude the first point to ensure variance
+#' calculation has a useful value.
+#'
+#' @inheritParams anomaly_score
+#' @param n Integer value for number of anomalies to apply
+#' @export
+add_anomaly <- function(ts, n, score_window, spec_window) {
+  n_idx <- sample(2:length(x), n, replace = FALSE) # Dont pick first point as var is NA
+  local_avg <- avg_sliding_window(x, score_window) # should be less than spec
+  w_avg <- avg_sliding_window(x, spec_window)
+  w_var <- var_sliding_window(x, spec_window)
+  anomaly_v <- ((local_avg[n_idx] + w_avg[n_idx]) * (1 + w_var[n_idx]) * rnorm(n)) + (x[n_idx])
+  x[n_idx] <- anomaly_v
+  x
+}
