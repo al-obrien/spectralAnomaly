@@ -4,9 +4,11 @@
 \alias{add_anomaly}
 \title{Generate anomalies within time series}
 \usage{
-add_anomaly(ts, n, score_window, spec_window)
+add_anomaly(x, n, score_window, spec_window)
 }
 \arguments{
+\item{x}{Numeric vector.}
+
 \item{n}{Integer value for number of anomalies to apply}
 
 \item{score_window}{Integer value for the window width for scoring.}
