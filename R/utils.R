@@ -88,6 +88,7 @@ add_anomaly <- function(x, n, score_window, spec_window) {
   local_avg <- avg_sliding_window(x, score_window) # should be less than spec
   w_avg <- avg_sliding_window(x, spec_window)
   w_var <- var_sliding_window(x, spec_window)
+  w_var <- pmin(w_var, 10) # Cap the variance in extreme circumstances
   anomaly_v <- ((local_avg[n_idx] + w_avg[n_idx]) * (1 + w_var[n_idx]) * stats::rnorm(n)) + (x[n_idx])
   x[n_idx] <- anomaly_v
   x
