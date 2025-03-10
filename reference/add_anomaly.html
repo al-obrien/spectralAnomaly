@@ -38,7 +38,7 @@
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_anomaly</span><span class="op">(</span><span class="va">x</span>, <span class="va">n</span>, <span class="va">score_window</span>, <span class="va">spec_window</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">add_anomaly</span><span class="op">(</span><span class="va">x</span>, <span class="va">n</span>, <span class="va">score_window</span>, <span class="va">spec_window</span>, var_cap_rng <span class="op">=</span> <span class="fl">5</span><span class="op">:</span><span class="fl">15</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -50,7 +50,7 @@
 
 
 <dt id="arg-n">n<a class="anchor" aria-label="anchor" href="#arg-n"></a></dt>
-<dd><p>Integer value for number of anomalies to apply</p></dd>
+<dd><p>Integer value for number of anomalies to apply.</p></dd>
 
 
 <dt id="arg-score-window">score_window<a class="anchor" aria-label="anchor" href="#arg-score-window"></a></dt>
@@ -59,6 +59,10 @@
 
 <dt id="arg-spec-window">spec_window<a class="anchor" aria-label="anchor" href="#arg-spec-window"></a></dt>
 <dd><p>Positive integer value for the window to calculate the averaged log spectrum.</p></dd>
+
+
+<dt id="arg-var-cap-rng">var_cap_rng<a class="anchor" aria-label="anchor" href="#arg-var-cap-rng"></a></dt>
+<dd><p>A range of values to cap variances.</p></dd>
 
 </dl></div>
     <div class="section level2">
