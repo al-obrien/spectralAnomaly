@@ -22,3 +22,4 @@ Config/testthat/edition: 3
 RoxygenNote: 7.3.2
 URL: https://al-obrien.github.io/spectralAnomaly/, https://github.com/al-obrien/spectralAnomaly
 BugReports: https://github.com/al-obrien/spectralAnomaly/issues
+Config/Needs/website: rmarkdown

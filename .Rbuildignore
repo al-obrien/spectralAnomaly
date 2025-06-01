@@ -11,3 +11,4 @@
 ^pkgdown$
 _scratchpad.R
 ^CRAN-SUBMISSION$
+^vignettes/articles$
