@@ -6,6 +6,7 @@ title: "Basic Implementation of SR + CNN"
 knitr::opts_chunk$set(
   collapse = TRUE,
   warning = FALSE,
+  message = FALSE,
   comment = "#>"
 )
 ```
