@@ -12,3 +12,4 @@
 _scratchpad.R
 ^CRAN-SUBMISSION$
 ^vignettes/articles$
+^cache/

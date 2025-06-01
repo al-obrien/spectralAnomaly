@@ -2,14 +2,21 @@
 title: "Basic Implementation of SR + CNN"
 ---
 
-
+```{r, include = FALSE}
+# This should be run from a precomputation perspective for the website
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  comment = "#>"
+)
+```
 
 ## Getting started
 
 Although the spectral residual (SR) algorithm can do a good job of spotting anomalies in a time series, it requires the user to set a threshold. To improve this method, the SR can be paired with a Convolutional Neural Network (CNN). The excellent {torch} and {luz} packages makes this feasible to do entirely in R (no Python installation required). The example below is a starting point to building CNNs with SR.
 
-
-```r
+```{r setup}
 set.seed(1927)
 library(spectralAnomaly)
 library(torch) # For setup instructions, see pkg website!
@@ -18,8 +25,7 @@ library(luz)
 
 There are a number of parameters that will be used across this article. Most of which refer to the number of samples, proportion of anomalies, and how the CNN will be run. The most important parameter is `len_window` which defines the space the model will search for anomalies.
 
-
-```r
+```{r}
 # Params
 n_ts <- 1000
 sr_q <- 3
@@ -37,8 +43,7 @@ n_epochs <- 3 # Number of epochs to run NN
 
 To help simulate time series data, we will use a helper function. For simplicity, the data will have the same lengths and represented as a numeric vector.
 
-
-```r
+```{r}
 create_ts <- function(fixed = TRUE, as_ts = FALSE) {
   # Simulate as if picking months between 1900 and 2025
   if(fixed) rdn <- c(1900,2025) else rdn <- sort(sample(1900:2025, 2, replace = FALSE))
@@ -52,12 +57,13 @@ create_ts <- function(fixed = TRUE, as_ts = FALSE) {
 
 Let's see what this looks like with default parameters.
 
-<img src="figure/unnamed-chunk-4-1.png" alt="Example of simulated data."  />
+```{r, echo = FALSE, fig.alt="Example of simulated data.", fig.cap = ''}
+plot(create_ts(), type = 'l', xlab = 'Time', ylab = 'Value')
+```
 
 Using `create_ts()` we will create a cohort of 1000 random time series.
 
-
-```r
+```{r}
 # Create simulated series, n times
 sim_ts <- replicate(1000, create_ts(fixed = TRUE, as_ts = FALSE), simplify = FALSE)
 ```
@@ -67,8 +73,7 @@ sim_ts <- replicate(1000, create_ts(fixed = TRUE, as_ts = FALSE), simplify = FAL
 
 The function below will create sliding windows and optionally inject anomalies within each window. This means the provided data will have a bunch of frames cut up with random anomalies injected within each frame. Each frame is normalized via a max-min approach to ensure better comparability.
 
-
-```r
+```{r}
 create_windows <- function(data, window, skip = 0, inject_anomalies = FALSE, prop_anom = 0.1) {
 
   # Internal function for lagged windows
@@ -116,8 +121,7 @@ create_windows <- function(data, window, skip = 0, inject_anomalies = FALSE, pro
 
 We use this function to add anomalies to windows from the various simulated datasets, and stack them.
 
-
-```r
+```{r, cache = TRUE}
 sim_ts_anom <-  create_windows(sim_ts,
                                window = len_window,
                                skip = n_skip,
@@ -130,8 +134,7 @@ sim_ts_anom <-  create_windows(sim_ts,
 
 With the simulated dataset, we can prepare for dataset ingestion and define data loaders. Training, validation, and testing splits are defined to ensure the model fits can be evaluated.
 
-
-```r
+```{r}
 uni_ids <- 1:nrow(sim_ts_anom$x)
 train_id <- sample(uni_ids, size = train_size * length(uni_ids))
 val_id <- sample(setdiff(uni_ids, train_id), size = valid_size * length(uni_ids))
@@ -140,8 +143,7 @@ test_id <- setdiff(uni_ids, union(train_id, val_id))
 
 Each data set has a saliency map operation applied, transposed, and appropriate torch variable types assigned.
 
-
-```r
+```{r}
 # Define dataset init and methods
 dataset_ts <- dataset(name = 'create_torch_ds()',
                       initialize = function(df) {
@@ -176,8 +178,7 @@ dl_ts_test <- dataloader(ds_test, shuffle = FALSE, batch_size = batch_size)
 
 Two 1D convolutional layers and two linear layers are stacked to create the model, as discussed in the paper by Ren et.al.
 
-
-```r
+```{r}
 cov_net <- nn_module(
   "SRCNN",
   initialize = function(len_window) {
@@ -209,8 +210,7 @@ cov_net <- nn_module(
 
 With the data and model defined, now we just need to provide a loss function, optimizer, and desired metrics. To account for significant class inbalance (anomalies being rare), a weighted loss function using `nn_bce_loss()` is defined. The `optim_sgd()` optimizer is used and accuracy calculated via `luz_metric_binary_accuracy()`.
 
-
-```r
+```{r}
 weighted_loss <- function(pred, lb) {
   weights <- torch_where(
     lb == 1,
@@ -223,8 +223,7 @@ weighted_loss <- function(pred, lb) {
 ```
 Run the fit using the data, model definition, and setup parameters. Allow the model to end early.
 
-
-```r
+```{r, cache=TRUE}
 cov_net_fitted <- cov_net |>
   luz::setup(loss = weighted_loss,
              optimizer = optim_sgd,
@@ -256,26 +255,16 @@ cov_net_fitted <- cov_net |>
 
 Since our model was fit with several metric callbacks, we can use the test data set with `evaluate()` to retrieve a summary.
 
-
-```r
+```{r}
 cov_net_eval <- evaluate(cov_net_fitted, dl_ts_test)
-#> Error in cpp_Tensor_storage(self$ptr): external pointer is not valid
 get_metrics(cov_net_eval)
-#> # A tibble: 3 × 2
-#>   metric value
-#>   <chr>  <dbl>
-#> 1 loss   0.641
-#> 2 acc    0.884
-#> 3 auc    0.916
 ```
 
 Overall, these look pretty good; however, a visual such as a ROC curve gives us a sense of the trade off between sensitivity and selectivity at different thresholds.
 
-
-```r
+```{r, fig.alt="ROC curve", fig.cap = ''}
 # Make the predictions of anomalies using test set dataloader
 pred_test <- predict(cov_net_fitted, dl_ts_test)
-#> Error in cpp_Tensor_storage(self$ptr): external pointer is not valid
 
 # ROC
 roc_val <- pROC::roc(
@@ -293,35 +282,28 @@ roc_val <- pROC::roc(
 plot(roc_val, print.thres = seq(0.1, 0.9, by = 0.1))
 ```
 
-<img src="figure/unnamed-chunk-14-1.png" alt="ROC curve"  />
-
 
 ### Other examples
 
 Let's compare this output to a similar dataset shown in other vignettes that did not use CNNs.
 
-
-```r
+```{r}
 test_ts_step <- c(rnorm(1, 1, n=250),
                   rnorm(10, 1, n=250))
 ```
 
 First, we will review what it looks by picking an arbitrarily high threshold with just `anomaly_score()` (i.e. no CNN components).
 
-
-```r
+```{r, fig.alt="Anomalies with SR at 99% threshold", fig.cap = ''}
 ts_scores <- anomaly_score(test_ts_step, score_window = 100)
 
 plot(test_ts_step, type = 'l')
 points(test_ts_step, col = ifelse(ts_scores > quantile(ts_scores, prob = 0.99),'red',NA), pch = 16)
 ```
 
-<img src="figure/unnamed-chunk-16-1.png" alt="Anomalies with SR at 99% threshold"  />
-
 Now, we apply the same input into the fitted SR-CNN model.
 
-
-```r
+```{r}
 # Define helper to input data into model as it expects
 prepare_input <- function(data, window, batch_size) {
   data <- embed(data, window)[,window:1]
@@ -347,15 +329,13 @@ newpred <- prepare_input(
     cov_net_fitted
     ) |>
   as.matrix()
-#> Error in cpp_Tensor_storage(self$ptr): external pointer is not valid
 
 # Since predictions are in windows, need to stack them
 idx_val <- embed(1:length(test_ts_step), len_window)[,len_window:1]
 idx_val <- idx_val[seq(1,nrow(idx_val),by = 3 + 1), ]
 ```
 
-
-```r
+```{r, fig.alt="Anomalies with SR+CNN", fig.cap = ''}
 # Plot anomalies with probability >= 90%
 anom <-  sort(idx_val[newpred >= 0.90])
 plot(test_ts_step, type = 'l')
@@ -363,8 +343,6 @@ points(test_ts_step,
        col = ifelse(1:length(test_ts_step) %in% anom,'red',NA),
        pch = 16)
 ```
-
-<img src="figure/unnamed-chunk-18-1.png" alt="Anomalies with SR+CNN"  />
 
 Although these results look okay, additional model tweaks could be conducted to further improve the model - such as adjusting the window length or the number of layers.
 
