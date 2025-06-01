@@ -1,4 +1,5 @@
 url: https://al-obrien.github.io/spectralAnomaly/
 template:
+  light-switch: true
   bootstrap: 5
 
