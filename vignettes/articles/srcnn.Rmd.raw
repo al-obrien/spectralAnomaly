@@ -121,7 +121,7 @@ create_windows <- function(data, window, skip = 0, inject_anomalies = FALSE, pro
 
 We use this function to add anomalies to windows from the various simulated datasets, and stack them.
 
-```{r, cache = TRUE}
+```{r}
 sim_ts_anom <-  create_windows(sim_ts,
                                window = len_window,
                                skip = n_skip,
@@ -223,7 +223,7 @@ weighted_loss <- function(pred, lb) {
 ```
 Run the fit using the data, model definition, and setup parameters. Allow the model to end early.
 
-```{r, cache=TRUE}
+```{r}
 cov_net_fitted <- cov_net |>
   luz::setup(loss = weighted_loss,
              optimizer = optim_sgd,

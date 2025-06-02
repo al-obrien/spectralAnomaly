@@ -259,7 +259,6 @@ Since our model was fit with several metric callbacks, we can use the test data 
 
 ```r
 cov_net_eval <- evaluate(cov_net_fitted, dl_ts_test)
-#> Error in cpp_Tensor_storage(self$ptr): external pointer is not valid
 get_metrics(cov_net_eval)
 #> # A tibble: 3 × 2
 #>   metric value
@@ -275,7 +274,6 @@ Overall, these look pretty good; however, a visual such as a ROC curve gives us 
 ```r
 # Make the predictions of anomalies using test set dataloader
 pred_test <- predict(cov_net_fitted, dl_ts_test)
-#> Error in cpp_Tensor_storage(self$ptr): external pointer is not valid
 
 # ROC
 roc_val <- pROC::roc(
@@ -347,7 +345,6 @@ newpred <- prepare_input(
     cov_net_fitted
     ) |>
   as.matrix()
-#> Error in cpp_Tensor_storage(self$ptr): external pointer is not valid
 
 # Since predictions are in windows, need to stack them
 idx_val <- embed(1:length(test_ts_step), len_window)[,len_window:1]
